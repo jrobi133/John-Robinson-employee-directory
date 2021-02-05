@@ -3,6 +3,7 @@ import API from "../utils/API";
 import CardContainer from "../components/CardContainer";
 // import Row from "../components/Row";
 import UserContext from "../utils/userContext";
+import SearchBar from "../components/SearchBar";
 
 const Gallery = () => {
     const [developerState, setDeveloperState] = useState ({
@@ -55,6 +56,7 @@ const Gallery = () => {
     return (
         <UserContext.Provider value ={{developerState, handleSearch, handleSort}}>
             <div>
+                <SearchBar />
                 <CardContainer />
             </div>
         </UserContext.Provider>
