@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import CardContainer from "../components/CardContainer";
-import Row from "../components/Row";
+// import Row from "../components/Row";
 import UserContext from "../utils/userContext";
 
 const Gallery = () => {
@@ -60,3 +60,5 @@ const Gallery = () => {
         </UserContext.Provider>
     )
 }
+
+export default Gallery;

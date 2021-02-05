@@ -1,8 +1,8 @@
 import React from "react";
-import Gallery from "./components/Gallery";
+import Gallery from "./pages/Gallery";
 import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
-import SearchResultContainer from "./components/SearchResultContainer";
+// import SearchResultContainer from "./components/SearchResultContainer";
 
 function App() {
   return (
