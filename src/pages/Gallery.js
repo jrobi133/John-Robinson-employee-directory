@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import CardContainer from "../components/CardContainer";
-// import Row from "../components/Row";
 import UserContext from "../utils/userContext";
 import SearchBar from "../components/SearchBar";
+import SortTable from "../components/SortTable";
 
 const Gallery = () => {
     const [developerState, setDeveloperState] = useState ({
@@ -27,7 +27,46 @@ const Gallery = () => {
         } else {
             currentOrder = "descend";
         }
+        const sortFunction = (a, b) => {
+            if (currentOrder === "ascend") {
+              if (a[heading] === undefined) {
+                return 1;
+              } else if (b[heading] === undefined) {
+                return -1;
+              }
+              else if (heading === "name") {
+                return a[heading].first.localeCompare(b[heading].first);
+              } else if (heading === "dob") {
+                return a[heading].age - b[heading].age;
+              } else {
+                return a[heading].localeCompare(b[heading]);
+              }
+            } else {
+              if (a[heading] === undefined) {
+                return 1;
+              } else if (b[heading] === undefined) {
+                return -1;
+              }
+              else if (heading === "name") {
+                return b[heading].first.localeCompare(a[heading].first);
+              }else if (heading === "dob") {
+                return b[heading].age - a[heading].age;
+              }  else {
+                return b[heading].localeCompare(a[heading]);
+              }
+            }
+          };
+          const sortedUsers = developerState.filteredUsers.sort(sortFunction);
+          const updatedHeadings = developerState.headings.map(elem => {
+          elem.order = elem.name === heading ? currentOrder : elem.order;
+          return elem;
+    });
 
+    setDeveloperState({
+      ...developerState,
+      filteredUsers: sortedUsers,
+      headings: updatedHeadings
+    });
 
     }
 
@@ -57,6 +96,9 @@ const Gallery = () => {
         <UserContext.Provider value ={{developerState, handleSearch, handleSort}}>
             <div>
                 <SearchBar />
+                <div className="data-area">
+        {developerState.filteredUsers.length > 0 ? <SortTable /> : <div></div>}
+      </div>
                 <CardContainer />
             </div>
         </UserContext.Provider>
